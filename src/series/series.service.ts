@@ -22,7 +22,10 @@ export class SeriesService {
   }
 
   async findOne(id: number) {
-    return await this.seriesRepository.findOneBy({ id });
+    return await this.seriesRepository.findOne({
+      where: { id },
+      relations: ['episodios'],
+    });
   }
 
   async update(id: number, updateSeriesDto: UpdateSeriesDto) {

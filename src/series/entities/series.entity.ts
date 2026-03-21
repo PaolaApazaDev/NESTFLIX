@@ -6,7 +6,7 @@ export class Series {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   titulo: string;
 
   @Column()

@@ -31,10 +31,23 @@ export class EpisodiosService {
   }
 
   async findAll() {
-    const episodios = await this.episodioRepository.find({
-      relations: ['series'],
-    });
-    return episodios;
+    // const episodios = await this.episodioRepository.find({
+    //   relations: ['series'],
+    // });
+    // return episodios;
+
+    //otra forma para mostrar campos especificos de la relacion
+
+    return await this.episodioRepository
+      .createQueryBuilder('episodio')
+      .leftJoinAndSelect('episodio.series', 'series')
+      .select([
+        'episodio.id',
+        'episodio.titulo',
+        'episodio.numeroCapitulo',
+        'series.titulo',
+      ])
+      .getMany();
   }
 
   async findOne(id: number) {

@@ -5,6 +5,8 @@ import { SeriesModule } from './series/series.module';
 import { EpisodiosModule } from './episodios/episodios.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { ConfigModule } from '@nestjs/config';
     }),
     SeriesModule,
     EpisodiosModule,
+    UsersModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
