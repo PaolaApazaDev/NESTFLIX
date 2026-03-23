@@ -1,11 +1,4 @@
-import { Series } from 'src/series/entities/series.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Episodio {
@@ -20,8 +13,4 @@ export class Episodio {
 
   @Column()
   numeroCapitulo: number;
-
-  @ManyToOne(() => Series, (series) => series.episodios)
-  @JoinColumn({ name: 'seriesId' })
-  series: Series;
 }

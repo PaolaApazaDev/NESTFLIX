@@ -1,12 +1,11 @@
-import { Episodio } from 'src/episodios/entities/episodio.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Series {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   titulo: string;
 
   @Column()
@@ -18,6 +17,12 @@ export class Series {
   @Column()
   urlPortada: string;
 
-  @OneToMany(() => Episodio, (episodio) => episodio.series)
-  episodios: Episodio[];
+  @Column({ type: 'int' })
+  estreno: number;
+
+  @Column({ type: 'float' })
+  calificacion: number;
+
+  @Column()
+  plataforma: string;
 }

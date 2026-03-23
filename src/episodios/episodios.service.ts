@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateEpisodioDto } from './dto/create-episodio.dto';
 import { UpdateEpisodioDto } from './dto/update-episodio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,15 +17,8 @@ export class EpisodiosService {
   ) {}
 
   async create(createEpisodioDto: CreateEpisodioDto) {
-    const series = await this.seriesRepository.findOneBy({
-      titulo: createEpisodioDto.nombreSerie,
-    });
-    if (!series) {
-      throw new BadRequestException('Serie no encontrada');
-    }
     const nuevoEpisodio = this.episodioRepository.create({
       ...createEpisodioDto,
-      series,
     });
     return await this.episodioRepository.save(nuevoEpisodio);
   }

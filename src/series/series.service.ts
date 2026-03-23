@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSeriesDto } from './dto/create-series.dto';
 import { UpdateSeriesDto } from './dto/update-series.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,10 +22,11 @@ export class SeriesService {
   }
 
   async findOne(id: number) {
-    return await this.seriesRepository.findOne({
-      where: { id },
-      relations: ['episodios'],
-    });
+    const series = await this.seriesRepository.findOneBy({ id });
+    if (!series) {
+      throw new NotFoundException(`Serie con id ${id} no encontrada`);
+    }
+    return series;
   }
 
   async update(id: number, updateSeriesDto: UpdateSeriesDto) {
@@ -33,6 +34,7 @@ export class SeriesService {
   }
 
   async remove(id: number) {
-    return await this.seriesRepository.delete(id);
+    const series = await this.findOne(id);
+    return await this.seriesRepository.remove(series);
   }
 }
